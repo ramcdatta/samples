@@ -1,0 +1,109 @@
+{
+  "type": "timeseries",
+  "title": "Order Count by Hour",
+  "targets": [
+    {
+      "refId": "A",
+      "type": "json",
+      "url": "https://your-api-url.com",
+      "data": "",
+      "json_options": {
+        "root_is_not_array": true,
+        "columns": [
+          {
+            "selector": "today_data[].hour",
+            "text": "hour",
+            "type": "number"
+          },
+          {
+            "selector": "today_data[].count",
+            "text": "Today",
+            "type": "number"
+          }
+        ]
+      }
+    },
+    {
+      "refId": "B",
+      "type": "json",
+      "url": "https://your-api-url.com",
+      "data": "",
+      "json_options": {
+        "root_is_not_array": true,
+        "columns": [
+          {
+            "selector": "average_data[].hour",
+            "text": "hour",
+            "type": "number"
+          },
+          {
+            "selector": "average_data[].count",
+            "text": "5-Day Avg",
+            "type": "number"
+          }
+        ]
+      }
+    },
+    {
+      "refId": "C",
+      "type": "json",
+      "url": "https://your-api-url.com",
+      "data": "",
+      "json_options": {
+        "root_is_not_array": true,
+        "columns": [
+          {
+            "selector": "history_data[].hour",
+            "text": "hour",
+            "type": "number"
+          },
+          {
+            "selector": "history_data[].count",
+            "text": "Historical",
+            "type": "number"
+          }
+        ]
+      }
+    }
+  ],
+  "fieldConfig": {
+    "defaults": {
+      "custom": {},
+      "unit": "none"
+    },
+    "overrides": []
+  },
+  "transformations": [
+    {
+      "id": "convertFieldType",
+      "options": {
+        "conversions": [
+          {
+            "fieldName": "hour",
+            "destinationType": "time"
+          }
+        ]
+      }
+    },
+    {
+      "id": "merge",
+      "options": {}
+    },
+    {
+      "id": "organize",
+      "options": {
+        "excludeByName": {
+          "Time": false
+        },
+        "indexByName": {},
+        "renameByName": {}
+      }
+    }
+  ],
+  "options": {
+    "legend": {
+      "displayMode": "list",
+      "placement": "bottom"
+    }
+  }
+}
